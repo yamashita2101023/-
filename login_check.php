@@ -11,7 +11,12 @@ foreach($searchArray as $row){
         header("Location: top.php");
         exit();
 }else{
-    echo "ログインに失敗しました";
+    function func_alert($message){
+        echo "<script>alert('$message');</script>";
+        //アラートのOKを押したら新規登録画面に移動
+        echo "<script>location.href='login.php';</script>";
+    }
+    func_alert("パスワードが間違っています。");
     }
 }
 ?>

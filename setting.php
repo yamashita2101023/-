@@ -20,11 +20,14 @@ if(isset($_SESSION['id']) == false  &&
       <link rel="stylesheet" href="./css/style.css?v=2">
       <!-- <link rel="stylesheet" href="./css/resettingMailaddress.css">
       <link rel="stylesheet" href="./css/createRecipe.css"> -->
-          <!-- javascriptの導入 -->
+    <!-- javascriptの導入 -->
     <script src="./script/script.js"></script>
     
     <!-- bootstrapのCSSの導入 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <!-- 検索ボックス導入のためのcss -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- header導入のためのcss -->
     <link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
@@ -36,6 +39,18 @@ if(isset($_SESSION['id']) == false  &&
     <link rel="stylesheet" href="./css/createRecipe.css">
 
       <title>設定画面</title>
+
+      <?php
+        //DAOの呼び出し
+        require_once 'DAO.php';
+        $dao = new DAO();
+
+        //マイページなので、セッションのidを利用して自分のユーザ情報を検索
+        $userdata = $dao->selectUser($_SESSION['id']);
+
+
+    ?>
+    
     </head>
 
     <body>
@@ -60,9 +75,15 @@ if(isset($_SESSION['id']) == false  &&
                 <!-- ユーザ情報表示 -->
                 <div>
                     <!-- マイページへ遷移 -->
-                    <a href="myPage.php" class="row ml-5 noDecoration">
-                        <img class="col-3 img-fluid" src="img/UserIcon_default.png">
-                        <h3 class="col-6 text-start ml-3 pt-2 text-black">ユーザ名</h3>
+                    <a href="myPage.php" class="row ml-5" style="text-decoration: none;">
+                    <?php
+                            echo"
+                                <img class='col-3 img-fluid' id='iconsize' src='".$userdata['user_icon']."'>
+                                <h3 class='col-6 text-start ml-3 pt-2' style='text-decoration: none; color: #333333;'>".$userdata['user_name']."</h3>
+                            ";
+                        ?>
+                        <!-- <img class="col-3 img-fluid" src="img/UserIcon_default.png">
+                        <h3 class="col-6 text-start ml-3 pt-2" style="text-decoration: none; color: #333333;">ユーザ名</h3> -->
                     </a>
                 </div>
 
@@ -74,7 +95,7 @@ if(isset($_SESSION['id']) == false  &&
                         <input type="submit" value="&#xf002">
                     </form>
                 </li>
-                <div class="mt-3" style="border-bottom: 1px solid #333;"></div>
+                <div class="mt-3" style="border-bottom: 1px solid #ff7800;"></div>
                 <li><a href="top.php">Top画面</a></li>
                 <li><a href="ranking.php">ランキング</a></li>
                 <li><a href="myPage.php">マイページ</a></li>
@@ -107,8 +128,8 @@ if(isset($_SESSION['id']) == false  &&
               <!-- <input type="file" id="icon_change" name="icon" /> -->
               <div id="icon_preview">
               <?php
-              require_once 'DAO.php';
-              $dao = new DAO();
+              // require_once 'DAO.php';
+              // $dao = new DAO();
               //アイコン表示する関数を起動し、returnで帰ってきた値を格納
               $result_icon = $dao->display_the_icon($_SESSION['id']);
               //result_iconをforeachで回す
@@ -201,7 +222,7 @@ if(isset($_SESSION['id']) == false  &&
     <footer class="text-center">
         <div class="row footerBar fontGothicBold">
             <a href="top.php" class="col-4" style="color: black;text-decoration: none;"><i class="bi bi-house-fill" style="margin-left:10%;font-size:40px"></i></a>
-            <a href="mypage.php" class="col-4"style="color: #FF7800;text-decoration: none;"><i class="bi bi-person-circle" style="font-size:40px"></i></a>
+            <a href="myPage.php" class="col-4"style="color: #FF7800;text-decoration: none;"><i class="bi bi-person-circle" style="font-size:40px"></i></a>
             <a href="createRecipe.php" class="col-4"style="color: black;text-decoration: none;"><i class="bi bi-journal-check" style="margin-right:10%;font-size:40px"></i></a>
         </div>
     </footer>
@@ -215,7 +236,13 @@ if(isset($_SESSION['id']) == false  &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    
     <!-- 固有のjs -->
     <script src="script/icon/icon_display.js"></script>
-    <script src="script/icon/change_icon_display.js"></script>
+    <!-- <script src="script/icon/change_icon_display.js"></script> -->
+
+    <!-- header導入のjs -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+    <script src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/5-1-14/js/5-1-14.js"></script>
+    <script src="script/header.js"></script>
     </html>
