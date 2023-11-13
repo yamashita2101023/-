@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>単語回答結果</title>
+</head>
+<body>
+	<p th:text="${correct}" style="color:rgb(0,128,255)"></p>
+	<p th:text="${noCorrect}" style="color:rgb(0,128,255)"></p>
+	<a th:href="@{/wordquiz}">次の問題へ</a>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>クイズ画面</title>
+</head>
+<body>
+    <h2 th:text="#{wordQuizText}"></h2>
+        <form th:action="@{/answer}" method="post">
+
+        <div th:each="word : ${wordQuizList}">
+            <input type="hidden" name="word_id" th:value="${word.get().id}">
+            <h2><span th:text="#{questionText}"></span>  <span th:text="${word.get().wordjp}"></span></h2>
+            <p><span th:text="#{misscountText}"></span>  <span th:text="${word.get().misscount}"></span></p>
+            <span th:text="#{wordPlease}"></span>
+            <input type="text" name="worden">
+            <button type="submit" th:text="#{button.answer}"></button>
+    </div>
+    
+    <!-- エラー文表示 -->
+ 
+		
+ </form>
+</body>
+</html>

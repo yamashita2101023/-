@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.index}">多分単語登録する画面</title>
+</head>
+<body>
+<form th:action="@{/allword}" method="post" th:object="${wordForm}">
+	<h2 th:text="#{englishWord}"></h2>
+	<label th:text="#{WordEn}"></label> <input type="text" th:field="*{worden}"><br>
+	<label th:text="#{WordJp}"></label> <input type="text" th:field="*{wordjp}"><br>
+	<button type="submit" th:text="#{button.insert}"></button>
+	
+	<!-- エラー文表示 -->
+		<ul th:if="${#fields.hasErrors('*')}">
+			<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+		</ul>
+</form>
+</body>
+</html>

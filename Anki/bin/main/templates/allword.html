@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.all}">登録データを表示する画面</title>
+</head>
+<body>
+<h2 th:text="#{EnglishWord.list}"></h2>
+<p th:if="${delcomplete}" th:text="${delcomplete}" style="color:rgb(0,128,255)"></p>
+	<div th:each="word : ${wordList}">
+		<span th:text="${word.worden}"></span>:
+		<span th:text="${word.wordjp}"></span>
+	
+	<form th:action="@{/{id}(id=${word.id})}" method="get">
+		<button type="submit" th:text="#{button.update}"></button>
+	</form>
+	
+	<form th:action="@{/delete}" method="post">
+	<input type="hidden" name="id" th:value="${word.id}">
+		<button type="submit" th:text="#{button.delete}"></button>
+	</form>
+	
+	<hr>
+</div>
+<a th:href="@{/ankisys}">新規単語登録へ</a>
+</body>
+</html>

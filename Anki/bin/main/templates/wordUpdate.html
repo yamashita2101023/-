@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{title.update}">Insert title here</title>
+</head>
+<body>
+<h2 th:text="#{update}"></h2>
+<p th:if="${complete}" th:text="${complete}" style="color:rgb(0,128,255)"></p>
+<form th:action="@{/update}" method="post" th:object="${wordForm}">
+	<input type="hidden" th:field="*{id}">
+	<label th:text="#{WordEn}"></label>  <input type="text" th:field="*{worden}"><br>
+	<label th:text="#{WordJp}"></label>  <input type="text" th:field="*{wordjp}"><br>
+	<label th:text="#{misscount}"></label>  <input type="text" th:field="*{misscount}"><br>
+	<button type="submit" th:text="#{button.insert}"></button> <br>
+	<a th:href="@{/allword}" th:text="#{a.link}"></a>
+	
+	<!-- エラー文表示 -->
+		<ul th:if="${#fields.hasErrors('*')}">
+			<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>
+		</ul>
+</form>
+</body>
+</html>
